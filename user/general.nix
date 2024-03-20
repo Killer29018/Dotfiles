@@ -2,10 +2,7 @@
 {
   imports = [
     ./shells/fish.nix
-    ./programs/alacritty/alacritty.nix
-    ./programs/nvim/nvim.nix
-    ./programs/tmux/tmux.nix
-    ./programs/git.nix
+    ./programs/programs.nix
   ];
 
   home.username = "aaron";

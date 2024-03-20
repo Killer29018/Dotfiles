@@ -38,6 +38,10 @@
 
   services = {
     xserver = {
+      displayManager = {
+        defaultSession = "plasmawayland";
+      };
+
       enable = true;
       displayManager.sddm.enable = true;
       desktopManager.plasma5.enable = true;
@@ -105,14 +109,16 @@
     unzip
     cargo
     rustc
-    cascadia-code
-    hack-font
+    # nerdfonts
+    kdePackages.plasma-browser-integration
   ];
 
-  fonts.packages = with pkgs; [
-    cascadia-code
-    hack-font
+  fonts = {
+    fontDir.enable = true;
+    packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
   ];
+};
 
   programs.ssh.startAgent = true;
 

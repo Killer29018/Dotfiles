@@ -16,11 +16,11 @@
       nixosConfigurations = {
         desktop_vm = lib.nixosSystem {
           inherit system;
-          modules = [ ./configuration.nix ./hardware_config/desktop_vm.nix ];
+          modules = [ ./configuration.nix ./configurations/desktop_vm_config.nix ./hardware_config/desktop_vm.nix ];
         };
         laptop = lib.nixosSystem {
           inherit system;
-          modules = [ ./configuration.nix ./hardware_config/laptop.nix ];
+          modules = [ ./configuration.nix ./configurations/laptop_config.nix ./hardware_config/laptop.nix ];
         };
       };
       homeConfigurations = {
