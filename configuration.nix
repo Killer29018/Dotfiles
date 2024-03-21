@@ -76,6 +76,10 @@
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
+  hardware = {
+    opengl.enable = true;
+  };
+
   users.users = {
     aaron = {
       description = "Aaron Danton";
@@ -99,18 +103,42 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim
+
     firefox
+
+    neovim
     git
     tmux
     alacritty
     fish
-    python3
+
     unzip
+
+    python3
     cargo
     rustc
-    # nerdfonts
+
     kdePackages.plasma-browser-integration
+
+    mesa
+    libGL
+
+    pkg-config
+
+    wayland
+    wayland-utils
+    wayland-scanner
+
+    libxkbcommon
+    xorg.libX11
+    xorg.libX11.dev
+    xorg.libXrandr
+    xorg.libXinerama
+    xorg.libXcursor
+    xorg.libXi
+
+    python310
+    python310Packages.jinja2
   ];
 
   fonts = {

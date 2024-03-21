@@ -4,6 +4,8 @@
     enable = true;
     interactiveShellInit = ''
       set fish_greeting
+
+      direnv hook fish | source
     '';
     shellAliases = {
       ll = "ls -al";

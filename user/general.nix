@@ -12,8 +12,9 @@
 
   home.packages = with pkgs; [
     hello
-    clang
     neofetch
+
+    nix-direnv
   ];
 
   home.sessionVariables = {

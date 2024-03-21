@@ -5,5 +5,6 @@
     ./nvim/nvim.nix
     ./tmux.nix
     ./git.nix
+    ./direnv.nix
   ];
 }

@@ -14,6 +14,8 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       nixosConfigurations = {
+        devShells.x86_64-linux.default = ( import ./shell.nix { inherit pkgs; });
+
         desktop_vm = lib.nixosSystem {
           inherit system;
           modules = [ ./configuration.nix ./configurations/desktop_vm_config.nix ./hardware_config/desktop_vm.nix ];
