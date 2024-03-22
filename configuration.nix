@@ -37,15 +37,15 @@
   programs.fish.enable = true;
 
   services = {
+    desktopManager.plasma6.enable = true;
+
     xserver = {
       displayManager = {
-        defaultSession = "plasmawayland";
+        defaultSession = "plasma";
       };
 
       enable = true;
-      # displayManager.sddm.enable = true;
       displayManager.sddm.wayland.enable = true;
-      desktopManager.plasma6.enable = true;
 
       xkb = {
         variant = "";
@@ -101,55 +101,60 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  #   "steam"
+  #   "steam-original"
+  #   "steam-run"
+  # ];
+
   # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment = {
+    sessionVariables = {
+      MOZ_USE_XINPUT2 = "1";
+    };
 
-    firefox
+    systemPackages = with pkgs; [
+      firefox
 
-    neovim
-    git
-    tmux
-    alacritty
-    fish
+      neovim
+      git
+      tmux
+      alacritty
+      fish
 
-    unzip
+      unzip
 
-    python3
-    cargo
-    rustc
+      python3
+      cargo
+      rustc
 
-    kdePackages.plasma-browser-integration
+      kdePackages.plasma-browser-integration
+      kdeplasma-addons
 
-    mesa
-    libGL
-
-    pkg-config
-
-    wayland
-    wayland-utils
-    wayland-scanner
-
-    libxkbcommon
-    xorg.libX11
-    xorg.libX11.dev
-    xorg.libXrandr
-    xorg.libXinerama
-    xorg.libXcursor
-    xorg.libXi
-
-    python310
-    python310Packages.jinja2
-  ];
+      gparted
+      steam
+      spotify
+      slack
+    ];
+  };
 
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
-  ];
-};
+    ];
+  };
 
   programs.ssh.startAgent = true;
+
+  programs.firefox = {
+    enable = true;
+    preferences = {
+      " widget.use-xdg-desktop-portal.file-picker" = 1;
+    };
+  };
+
+  programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
