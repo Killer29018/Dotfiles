@@ -5,9 +5,17 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.url = "github:hyprwm/Hyprland";
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, nix-colors, ... }:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
@@ -28,10 +36,12 @@
       homeConfigurations = {
         desktop_vm = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
+          extraSpecialArgs = { inherit nix-colors; };
           modules = [ ./user/general.nix ./user/desktop_vm.nix ];
         };
         laptop = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
+          extraSpecialArgs = { inherit nix-colors; };
           modules = [ ./user/general.nix ./user/laptop.nix ];
         };
       };

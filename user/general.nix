@@ -1,9 +1,14 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nix-colors, ... }:
 {
   imports = [
+    nix-colors.homeManagerModules.default
     ./shells/fish.nix
     ./programs/programs.nix
+    ./hyprland/hyprland.nix
+    ./waybar/waybar.nix
   ];
+
+  colorscheme = nix-colors.colorSchemes.catppuccin-macchiato;
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -25,7 +30,17 @@
 
     discord
 
+    wl-clipboard
+
     xournalpp
+    swww
+    wofi
+    brightnessctl
+    pavucontrol
+
+    waybar
+    libwebp
+    openssl
   ];
 
   home.sessionVariables = {

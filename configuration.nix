@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-{
+let
+  # stable = import<nixos-23.11> {};
+in {
   # Bootloader.
   boot = {
     loader = {
@@ -98,22 +100,37 @@
     };
   };
 
+  # nixpkgs.overlays = [
+  #   (self: super: {
+      # waybar = super.waybar.overrideAttrs (oldAttrs: {
+      #   src = super.fetchFromGitHub {
+      #     owner = "Alexays";
+      #     repo = "waybar";
+      #     rev ="dblplwgffhq7cs86mrkibqkh3pzg9wj2";
+      #     hash = "15mhqi7gqkam9xzq4xx1319sjyr5qqxfmbja6rflpx5wq05j9gh6";
+      #   };
+  #     swww_0_9_1 = super.swww.overrideAttrs ( oldAttrs: {
+  #       src = super.fetchFromGitHub {
+  #         owner = "LGFae";
+  #         repo = "swww";
+  #         rev = "dcf0d4e481b13c19f2490d730cb45c03d4e8b77b";
+  #         hash = "sha256-HfK9AOTsTO0JnrD6e6g/LtwukOjDhf9ZeC6/TmNZqDc=";
+  #       };
+  #     });
+  #   })
+  # ];
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-  #   "steam"
-  #   "steam-original"
-  #   "steam-run"
-  # ];
-
-  # List packages installed in system profile. To search, run:
   environment = {
     sessionVariables = {
       MOZ_USE_XINPUT2 = "1";
+      NIXOS_OZONE_WL = "1";
     };
 
-    systemPackages = with pkgs; [
+    systemPackages =
+    with pkgs; [
       firefox
 
       neovim
@@ -127,14 +144,22 @@
       python3
       cargo
       rustc
+      cmake
 
       kdePackages.plasma-browser-integration
-      kdeplasma-addons
+      # kdeplasma-addons
 
       gparted
       steam
       spotify
       slack
+
+      ## HYPRLAND
+      (waybar.overrideAttrs (oldAttrs: {
+          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+        })
+      )
+      swww
     ];
   };
 
@@ -156,24 +181,17 @@
 
   programs.steam.enable = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    # package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  };
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  # For screen share and others
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -24,6 +24,8 @@
       set-option -g renumber-windows on
       set-option -g automatic-rename on
 
+      set -s set-clipboard external
+
       bind -n M-H previous-window
       bind -n M-L next-window
 
