@@ -6,7 +6,7 @@ let
 
     sleep 1
 
-    ./home/aaron/.dotfiles/scripts/RandomBackground.sh &
+    /home/aaron/.dotfiles/scripts/RandomBackgroundLoop.sh &
   '';
 in
 {
@@ -48,6 +48,10 @@ in
         };
       };
 
+      master = {
+        new_is_master = false;
+      };
+
       bezier = [
         "wind, 0.05, 0.9, 0.1, 1.05"
         # "winIn, 0.1, 1.1, 0.1, 1.1"
@@ -59,11 +63,12 @@ in
       animations = {
         enabled = true;
         animation = [
-          "windowsMove, 1, 5, wind, slide"
+          # "windowsMove, 1, 5, wind, slide"
+          # "windowsMove, 1, 1, wind, slide"
           "border, 1, 10, default"
-          "borderangle, 1, 500, linear, loop"
+          # "borderangle, 1, 500, linear, loop"
           # "fade, 1, 10, default"
-          # "workspaces, 1, 5, wind"
+          "workspaces, 1, 2, wind"
           # "windows, 1, 6, wind, slide"
           ];
       };
@@ -115,6 +120,16 @@ in
         "SUPER, right, movefocus, r"
         "SUPER, up,    movefocus, u"
         "SUPER, down,  movefocus, d"
+
+        "SUPER, H, movefocus, l"
+        "SUPER, L, movefocus, r"
+        "SUPER, K, movefocus, u"
+        "SUPER, J, movefocus, d"
+
+        "SUPER SHIFT, H, swapwindow, l"
+        "SUPER SHIFT, L, swapwindow, r"
+        "SUPER SHIFT, K, swapwindow, u"
+        "SUPER SHIFT, J, swapwindow, d"
 
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"

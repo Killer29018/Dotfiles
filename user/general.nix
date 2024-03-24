@@ -26,6 +26,8 @@
     hello
     neofetch
 
+    texlive.combined.scheme-tetex
+
     nix-direnv
 
     discord

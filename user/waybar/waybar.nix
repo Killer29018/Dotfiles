@@ -15,38 +15,32 @@
         "custom/dome-right"
       ];
 
-      modules-center = [
-        "custom/dome-left"
-        "clock#1"
-        "clock#2"
-        "clock#3"
-        "custom/dome-right"
-      ];
-
       modules-right = [
         "custom/dome-left"
+        "network"
         "pulseaudio"
         "memory"
         "cpu"
         "battery"
-        "disk"
-        # "tray"
+        "temperature"
+        "backlight"
+        "clock"
         "custom/dome-right"
         "custom/padding"
       ];
 
       "custom/padding" = {
-        format = "  ";
+        format = " ";
         tooltip = false;
       };
 
       "custom/dome-left" = {
-        format = "";
+        format = " ";
         tooltip = false;
       };
 
       "custom/dome-right" = {
-        format = "";
+        format = " ";
         tooltip = false;
       };
 
@@ -56,22 +50,39 @@
           "1" = [];
           "2" = [];
           "3" = [];
+          "4" = [];
+          "5" = [];
+          "6" = [];
+          "7" = [];
+          "8" = [];
+          "9" = [];
         };
       };
 
-      "clock#1" = {
-        format = "{:%a}";
-        tooltip = false;
+      clock = {
+        format = "{:%d-%m %H:%M:%S}";
+        interval = 1;
+        tooltip = true;
+        timezone = "GB";
+        tooltip-format = "<tt><small>{calendar}</small></tt>";
+
+        calendar = {
+          mode = "month";
+          on-click = "mode";
+        };
+
+        actions = {
+          on-scroll-up = "shift_up";
+          on-scroll-down = "shift_down";
+        };
       };
 
-      "clock#2" = {
-        format = "{:%H:%M:%S}";
-        tooltip = false;
-      };
-
-      "clock#3" = {
-        format = "{:%d-%m}";
-        tooltip = false;
+      network = {
+        interval = 2;
+        format-disconnected = "󱚼";
+        format = "{bandwidthUpBytes} {bandwidthDownBytes}";
+        tooltip = true;
+        tooltip-format-wifi = "{essid} {signalStrength}%";
       };
 
       pulseaudio = {
@@ -92,12 +103,12 @@
 
       memory = {
         interval = 5;
-        format = "Mem {}%";
+        format = " {}%";
       };
 
       cpu = {
         interval = 5;
-        format = "CPU {usage:2}%";
+        format = " {usage:2}%";
       };
 
       battery = {
@@ -106,7 +117,7 @@
           warning = 30;
           critical = 15;
         };
-        format = "{icon} {capacity}%";
+        format = "{capacity:2}% {icon} ";
         format-icons = [
           ""
           ""
@@ -114,17 +125,36 @@
           ""
           ""
         ];
+        format-alt = "{time}";
       };
 
-      disk = {
+      backlight = {
         interval = 5;
-        format = "Disk {percentage_used:2}%";
-        path = "/";
+        format = "{percent}% {icon}";
+        format-icons = [
+          ""
+          ""
+          ""
+          ""
+          ""
+          ""
+          ""
+          ""
+          ""
+        ];
+        tooltip = false;
       };
 
-      tray = {
-        icon-size = 20;
+      temperature = {
+        interval = 5;
+        format = "{icon} {temperatureC}°C";
+        format-icons = [
+          ""
+        ];
+        tooltip = false;
+        on-click = "/home/aaron/.dotfiles/scripts/RandomBackground.sh";
       };
+
     }];
 
     style = ''
@@ -135,7 +165,6 @@
 
       window#waybar {
         background: transparent;
-        color: #fdf6e3;
       }
 
       #custom-padding {
@@ -144,58 +173,81 @@
 
       #custom-dome-right,
       #custom-dome-left {
-        color: #1a1a1a;
+        color: #${config.colorScheme.palette.base00};
+      }
+
+      #custom-dome-left {
+        border-top-left-radius: 13px;
+        border-bottom-left-radius: 13px;
+      }
+
+      #custom-dome-right {
+        border-top-right-radius: 13px;
+        border-bottom-right-radius: 13px;
       }
 
       #workspaces,
-      #clock.1,
-      #clock.2,
-      #clock.3,
+      #clock,
       #pulseaudio,
       #memory,
       #cpu,
       #battery,
-      #disk,
-      #tray {
-        background: #1a1a1a;
+      #backlight,
+      #temperature,
+      #custom-dome-right,
+      #custom-dome-left,
+      #network {
+        background: #${config.colorScheme.palette.base00};
       }
 
       #workspaces button {
         padding: 0 2px;
-        color: #fdf6e3;
+        color: #${config.colorScheme.palette.base04};
       }
 
       #workspaces button.active {
-        color: #268bd2;
+        color: #${config.colorScheme.palette.base0D};
+      }
+
+      #workspaces button.empty {
+        color: #${config.colorScheme.palette.base01};
       }
 
       #workspaces button:hover {
         box-shadow: inherit;
         text-shadow: inherit;
 
-        background: #1a1a1a;
-        border: #1a1a1a;
+        background: #${config.colorscheme.palette.base03};
+        border: #${config.colorScheme.palette.base03};
         padding: 0 3px;
       }
 
       #pulseaudio {
-        color: #268bd2;
+        color: #${config.colorScheme.palette.base0D};
       }
 
       #memory {
-        color: #2aa198;
-      }
-
-      #cpu {
-        color: #6c71c4;
+        color: #${config.colorScheme.palette.base0C};
       }
 
       #battery {
-        color: #859900;
+        color: #${config.colorScheme.palette.base0B};
       }
 
-      #disk {
-        color: #b58900;
+      #cpu {
+        color: #${config.colorScheme.palette.base0A};
+      }
+
+      #temperature {
+        color: #${config.colorScheme.palette.base08};
+      }
+
+      #backlight {
+        color: #${config.colorScheme.palette.base07};
+      }
+
+      #network {
+        color: #${config.colorScheme.palette.base09};
       }
 
       #clock,
@@ -203,7 +255,10 @@
       #memory,
       #cpu,
       #battery,
-      #disk {
+      #cpu,
+      #network,
+      #temperature,
+      #backlight {
         padding: 0 10px;
       }
 

@@ -32,7 +32,7 @@
           green = "#${config.colorScheme.palette.base0B}";
           yellow = "#${config.colorScheme.palette.base0A}";
           blue = "#${config.colorScheme.palette.base0D}";
-          magenta = "#${config.colorScheme.palette.base0F}";
+          magenta = "#${config.colorScheme.palette.base0E}";
           cyan = "#${config.colorScheme.palette.base0C}";
           white = "#${config.colorScheme.palette.base05}";
         };
@@ -42,7 +42,7 @@
           green = "#${config.colorScheme.palette.base0B}";
           yellow = "#${config.colorScheme.palette.base0A}";
           blue = "#${config.colorScheme.palette.base0D}";
-          magenta = "#${config.colorScheme.palette.base0F}";
+          magenta = "#${config.colorScheme.palette.base0E}";
           cyan = "#${config.colorScheme.palette.base0C}";
           white = "#${config.colorScheme.palette.base05}";
         };
@@ -52,7 +52,7 @@
           green = "#${config.colorScheme.palette.base0B}";
           yellow = "#${config.colorScheme.palette.base0A}";
           blue = "#${config.colorScheme.palette.base0D}";
-          magenta = "#${config.colorScheme.palette.base0F}";
+          magenta = "#${config.colorScheme.palette.base0E}";
           cyan = "#${config.colorScheme.palette.base0C}";
           white = "#${config.colorScheme.palette.base05}";
         };
