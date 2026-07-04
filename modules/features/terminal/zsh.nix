@@ -38,9 +38,10 @@
         enable = true;
         plugins = [
           "fzf"
-            "starship"
-            "direnv"
-            "per-directory-history"
+          "starship"
+          "direnv"
+          "per-directory-history"
+          "rust"
         ];
 
         theme = "robbyrussell";

@@ -36,6 +36,8 @@ in {
     configuration.machine.hostname = "laptop";
     configuration.machine.host = "laptop";
     configuration.user = user;
+
+    configuration.muteOnLock = false;
   };
 
   flake.modules.homeManager.laptop-options = { ... }: {

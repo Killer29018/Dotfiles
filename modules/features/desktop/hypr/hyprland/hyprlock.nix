@@ -1,9 +1,11 @@
 { self, lib, ... }: {
 
   flake.modules.nixos.desktop-hyprlock = { config, pkgs, ... }: let
-    lockScript = pkgs.pkgs.writeShellScriptBin "lock" (
-        ''
-        grim -l 0 /tmp/current_screen.png &
+    lockScript = pkgs.pkgs.writeShellScriptBin "lock" ( ''
+        '' + (lib.optionalString (config.configuration.machine.host == "laptop")) ''
+        grim -l 0 -o eDP-1 /tmp/current_screen.png &
+        '' + (lib.optionalString (config.configuration.machine.host == "desktop")) ''
+        grim -l 0 -o DP-1 /tmp/current_screen.png &
         '' + (lib.optionalString config.configuration.muteOnLock) ''
         wpctl set-mute @DEFAULT_AUDIO_SINK@ 1 &
         '' + ''

@@ -2,8 +2,7 @@
   flake.modules.nixos.desktop-hyprland-standalone = { pkgs, config, ... }: let
     startupScript = pkgs.pkgs.writeShellScriptBin "start" (
       ''
-        env QML_IMPORT_PATH=$HOME/.config/quickshell qs -p ~/.config/quickshell/shell.qml
-        $NIXOS_SCRIPTS_DIR/WaybarStart.sh &
+        $NIXOS_SCRIPTS_DIR/QuickshellStart.sh &
         awww-daemon &
 
         sleep 1

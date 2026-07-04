@@ -21,12 +21,6 @@ PanelWindow {
   implicitWidth: 450
   implicitHeight: contents.implicitHeight + Config.Spacing.margin * 2
 
-  IdleInhibitor {
-    id: idleInhibitor
-    window: parent
-    enabled: false
-  }
-
   margins {
     top: 5
   }

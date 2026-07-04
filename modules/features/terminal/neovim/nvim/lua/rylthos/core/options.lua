@@ -40,4 +40,7 @@ vim.opt.list = true
 
 vim.opt.colorcolumn = "80,100"
 
+vim.o.exrc = true
+vim.o.secure = true
+
 vim.g.mapleader = " "

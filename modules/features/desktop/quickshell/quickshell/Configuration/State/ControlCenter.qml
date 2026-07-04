@@ -4,7 +4,7 @@ import Quickshell
 import QtQuick
 
 Singleton {
-  property bool isOpen: true
+  property bool isOpen: false
 
   property bool isLocked: false
 
