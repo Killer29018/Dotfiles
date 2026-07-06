@@ -8,6 +8,7 @@ import "../Widgets" as Widgets
 import "../Widgets/Hyprland" as Hyprland
 import "../Config" as Config
 import "../Windows" as Windows
+import "../Singletons" as Singletons
 import "../State" as State
 import Nix
 
@@ -115,13 +116,13 @@ Scope {
           Widgets.Battery {
             id: battery
 
-            visible: Singleton.Battery.exists
+            visible: Singletons.Battery.exists
           }
 
           Widgets.Brightness {
             id: brightness
 
-            visible: Singleton.Brightness.exists
+            visible: Singletons.Brightness.exists
           }
 
           Item {

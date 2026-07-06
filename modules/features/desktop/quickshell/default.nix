@@ -27,6 +27,29 @@ in {
     xdg.configFile."quickshell/Nix/qmldir".text = ''
       module Nix
       singleton Colourscheme 1.0 Colourscheme.qml
+      singleton MachineConfig 1.0 MachineConfig.qml
+    '';
+
+    xdg.configFile."quickshell/Nix/MachineConfig.qml".text =
+    let
+      network_name = if (osConfig.configuration.machine.host == "desktop") then
+        "wlo1"
+      else if (osConfig.configuration.machine.host == "laptop") then
+        "wlp2s0"
+      else
+        "undefined";
+    in ''
+      pragma Singleton
+
+      import Quickshell
+      import QtQuick
+
+      Singleton {
+        id: root
+
+        readonly property string host_machine: "${osConfig.configuration.machine.host}"
+        readonly property string network_device: "${network_name}"
+      }
     '';
 
     xdg.configFile."quickshell/Nix/Colourscheme.qml".text = ''

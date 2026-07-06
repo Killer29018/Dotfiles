@@ -8,7 +8,7 @@ Singleton {
   id: root
 
   property int brightness: 0
-  property bool exists: true
+  property bool exists: MachineConfig.host_machine != "desktop"
 
   function getIcon() {
     var brightness = root.brightness

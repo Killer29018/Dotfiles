@@ -17,7 +17,9 @@ Singleton {
     running: true
 
     stdout: StdioCollector {
-      onStreamFinished: root.exists = (this.text == "1")
+      onStreamFinished: {
+        root.exists = (this.text == "1")
+      }
     }
   }
 
@@ -44,7 +46,7 @@ Singleton {
   Timer {
     interval: 1000
     running: true
-    repeat: true
+    repeat: root.exists
     onTriggered: {
       proc_capacity.running = true
       proc_charging.running = true

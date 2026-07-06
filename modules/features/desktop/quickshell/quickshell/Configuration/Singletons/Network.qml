@@ -3,6 +3,7 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import Nix
 
 Singleton {
   id: root
@@ -18,7 +19,7 @@ Singleton {
 
   Process {
     id: proc_network
-    command: [ "sh", "-c", "awk '{if(l1){print $2-l1,$10-l2} else{l1=$2; l2=$10;}}' <(grep wlp2s0 /proc/net/dev) <(sleep 1; grep wlp2s0 /proc/net/dev)"]
+    command: [ "sh", "-c", `awk '{if(l1){print $2-l1,$10-l2} else{l1=$2; l2=$10;}}' <(grep ${MachineConfig.network_device} /proc/net/dev) <(sleep 1; grep ${MachineConfig.network_device} /proc/net/dev)`]
 
     running: true
 
@@ -39,6 +40,7 @@ Singleton {
         var upload = convert(data[0])
         root.upload = upload[0].toFixed(1)
         root.upload_units = upload[1]
+
 
         var download = convert(data[1])
         root.download = download[0].toFixed(1)
