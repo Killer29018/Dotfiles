@@ -19,6 +19,12 @@
       example = true;
     };
 
+    screenTimeout = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable screen timeout";
+    };
+
     enableScreenRecorder = lib.mkOption {
       type = lib.types.bool;
       default = true;
