@@ -15,10 +15,13 @@
     programs.firefox = {
       enable = true;
 
+      configPath = ".mozilla/firefox";
+
       profiles = {
         aaron = {
           id = 0;
-          name = "aaron";
+          name = "rylthos";
+          path="rylthos";
           isDefault = true;
           settings = {
             "browser.newtabpage.activity-stream.feeds.section.highlights" = false;
