@@ -11,12 +11,16 @@
 
     "desktop-art"
     "desktop-cad"
+    "desktop-discord"
     "desktop-nvibrant"
     "desktop-photography"
+    "desktop-protonvpn"
     "desktop-pureref"
     "desktop-recording"
     "desktop-screen-recorder"
     "desktop-wireshark"
+
+    "desktop-options"
   ];
   user = "aaron";
 in {
@@ -25,7 +29,6 @@ in {
       self.modules.nixos.desktop-hardware
       self.modules.nixos.desktop-config
       self.modules.nixos.desktop-modules
-      self.modules.nixos.desktop-options
     ];
   };
 
@@ -33,6 +36,9 @@ in {
     configuration.machine.hostname = "desktop";
     configuration.machine.host = "desktop";
     configuration.user = user;
+
+    configuration.muteOnLock = false;
+    configuration.screenTimeout = false;
   };
 
   flake.modules.nixos.desktop-modules = { ... }:
